@@ -1,6 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { useGetPokemons } from '../../hooks/useGetPokemons';
+import { PokemonCard } from '../../components';
 
 export const PokemonList = () => {
   const classes = useStyles();
@@ -9,9 +10,11 @@ export const PokemonList = () => {
   return (
     <div className={classes.root}>
       {loading && <div>Loading...</div>}
-      {pokemons.map((pkmn) => (
-        <div key={pkmn.id}>{pkmn.name}</div>
-      ))}
+      <div className={classes.cardContainer}>
+        {pokemons.map((pkmn, index) => (
+          <PokemonCard key={index} {...pkmn} />
+        ))}
+      </div>
     </div>
   );
 };
@@ -19,10 +22,16 @@ export const PokemonList = () => {
 const useStyles = createUseStyles(
   {
     root: {
-      width: '100%',
-      textAlign: 'center',
-      padding: '32px',
-      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    cardContainer: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '16px',
+      justifyContent: 'center',
+      padding: '16px',
     },
   },
   { name: 'PokemonList' }
