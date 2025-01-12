@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogContent, DialogFooter, DialogType, PrimaryButton } from '@fluentui/react';
 import { createUseStyles } from 'react-jss';
 import { PokemonDialogDetailItem } from '../PokemonDialog/PokemonDialogDetailItem';
-import { useGetPokemonDetails } from '../../hooks/useGetPokemons';
+import { useGetPokemonDetails } from '../../hooks/useGetPokemonDetails';
 
 export const PokemonDialog = () => {
   const classes = useStyles();
