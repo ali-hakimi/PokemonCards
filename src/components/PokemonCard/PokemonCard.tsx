@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
-import { Pokemon } from '../../hooks/useGetPokemons';
+import { PokemonCardContent } from './PokemonCardContent';
 import { PokemonCardFooter } from './PokemonCardFooter';
 import { PokemonCardHeader } from './PokemonCardHeader';
-import { PokemonCardContent } from './PokemonCardContent';
+import { Pokemon } from '../../hooks/useGetPokemons';
+import { useNavigate } from 'react-router-dom';
 
 export const PokemonCard = (props: Pokemon) => {
     const classes = useStyles();
-    const [hideDialog, setHideDialog] = useState(true);
 
-    const toggleHideDialog = () => setHideDialog(!hideDialog);
+    const navigate = useNavigate();
 
+    const handleItemClick = (id: string) => {
+        navigate(`/pokemon/${id}`);
+    };
     return (
-        <div className={classes.root} onClick={toggleHideDialog}>
+        <div className={classes.root} onClick={() => handleItemClick(props.id)}>
             <PokemonCardHeader {...props} />
             <PokemonCardContent {...props} />
             <PokemonCardFooter {...props} />

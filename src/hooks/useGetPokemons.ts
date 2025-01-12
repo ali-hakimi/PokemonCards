@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { useParams } from 'react-router-dom';
 
 export type Pokemon = {
   id: string;
@@ -55,5 +56,43 @@ export const useGetPokemons = () => {
     pokemons,
     pokemonOptions,
     ...queryRes,
+  };
+};
+
+const GET_POKEMON_DETAILS = gql`
+  query pokemon($id: String, $name: String){
+    pokemon(id: $id, name: $name){
+      id
+      number
+      name
+      weight{
+        minimum
+        maximum
+      }
+      height{
+        minimum
+        maximum
+      }
+      classification
+      types
+      resistant
+      weaknesses
+      fleeRate
+      maxCP
+      maxHP
+      image
+    }
+  }
+`;
+
+export const useGetPokemonDetails = () => {
+  const { id } = useParams();
+
+  const { data, loading, error } = useQuery(GET_POKEMON_DETAILS, {
+    variables: { id },
+  });
+
+  return {
+    data, loading, error,
   };
 };
